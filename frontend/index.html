@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quote of the Day</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 id="quote">Loading...</h1>
+  <button onclick="getQuote()">New Quote</button>
+
+  <script>
+    async function getQuote() {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/quote");
+        const data = await res.json();
+        document.getElementById("quote").textContent = data.quote;
+      } catch (error) {
+        document.getElementById("quote").textContent = "Error loading quote.";
+        console.error("Fetch error:", error);
+      }
+    }
+
+    // Load one on page load
+    getQuote();
+  </script>
+</body>
+</html>
